@@ -2,15 +2,15 @@
 #include "LandscapeComponent.h"
 
 // WORKAROUND for 4.15
-#ifndef WITH_KISSFFT
-#define WITH_KISSFFT 0
-#endif
+//#ifndef WITH_KISSFFT
+//#define WITH_KISSFFT 0
+//#endif
 
 #include "Editor/LandscapeEditor/Private/LandscapeEdModeTools.h"
 #include "JavascriptContext.h"
 #include "DynamicMeshBuilder.h"
 #include "BSPOps.h"
-#include "HotReloadInterface.h"
+#include "Misc/HotReloadInterface.h"
 #include "JavascriptWindow.h"
 #include "Editor/PropertyEditor/Public/PropertyEditorModule.h"
 #include "Toolkits/AssetEditorToolkit.h"
@@ -26,10 +26,10 @@
 #include "Components/BrushComponent.h"
 
 #include "../../Launch/Resources/Version.h"
-#include "PlatformFileManager.h"
-#include "FileManager.h"
-#include "NavDataGenerator.h"
-#include "SlateApplication.h"
+#include "HAL/PlatformFileManager.h"
+#include "HAL/FileManager.h"
+#include "AI/NavDataGenerator.h"
+#include "Framework/Application/SlateApplication.h"
 #include "Engine/LevelStreaming.h"
 #include "VisualLogger/VisualLogger.h"
 #include "JavascriptUICommands.h"
@@ -425,7 +425,7 @@ void UJavascriptEditorLibrary::DrawWireDiamond(const FJavascriptPDI& PDI, const 
 }
 void UJavascriptEditorLibrary::DrawPolygon(const FJavascriptPDI& PDI, const TArray<FVector>& Verts, const FLinearColor& InColor, ESceneDepthPriorityGroup DepthPriority)
 {
-	FDynamicMeshBuilder MeshBuilder;
+	FDynamicMeshBuilder MeshBuilder(ERHIFeatureLevel::SM5);
 
 	FColor Color = InColor.ToFColor(false);
 
@@ -799,11 +799,11 @@ void UJavascriptEditorLibrary::RemoveLevelInstance(UWorld* World)
 {
 	// Clean up existing world and remove it from root set so it can be garbage collected.
 	World->bIsLevelStreamingFrozen = false;
-	World->bShouldForceUnloadStreamingLevels = true;
-	World->bShouldForceVisibleStreamingLevels = false;
-	for (ULevelStreaming* StreamingLevel : World->StreamingLevels)
+	World->SetShouldForceUnloadStreamingLevels(true);
+	World->SetShouldForceVisibleStreamingLevels(false);
+	for (ULevelStreaming* StreamingLevel : World->GetStreamingLevels())
 	{
-		StreamingLevel->bIsRequestingUnloadAndRemoval = true;
+		StreamingLevel->SetIsRequestingUnloadAndRemoval(true);
 	}
 	World->RefreshStreamingLevels();
 }

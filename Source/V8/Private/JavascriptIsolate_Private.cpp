@@ -22,10 +22,10 @@ PRAGMA_DISABLE_SHADOW_VARIABLE_WARNINGS
 #include "StructMemoryInstance.h"
 #include "JavascriptMemoryObject.h"
 #include "Engine/UserDefinedStruct.h"
-#include "Ticker.h"
+#include "Containers/Ticker.h"
 #include "V8PCH.h"
-#include "UObjectIterator.h"
-#include "TextProperty.h"
+#include "UObject/UObjectIterator.h"
+#include "UObject/TextProperty.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 
 #if WITH_EDITOR

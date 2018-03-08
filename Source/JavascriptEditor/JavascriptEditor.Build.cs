@@ -50,7 +50,8 @@ public class JavascriptEditor : ModuleRules
 				        "Editor/Kismet/Private",
 					    "Editor/GameplayAbilitiesEditor/Private",
                         "Editor/LandscapeEditor/Private",
-                        "Developer/AssetTools/Private"
+                        "Developer/AssetTools/Private",
+                        "JavascriptUMG"
                     }
                 );
 
@@ -58,6 +59,8 @@ public class JavascriptEditor : ModuleRules
             {
                 PrivateDependencyModuleNames.AddRange(new string []{ "LevelEditor", "ViewportInteraction", "VREditor" });
             }
+
+            PublicDefinitions.Add(string.Format("WITH_KISSFFT=1"));
 
             PrivateDependencyModuleNames.AddRange(
                 new string[]

@@ -4,17 +4,17 @@ PRAGMA_DISABLE_SHADOW_VARIABLE_WARNINGS
 #include "JavascriptIsolate.h"
 #include "JavascriptContext.h"
 #include "JavascriptComponent.h"
-#include "FileManager.h"
+#include "HAL/FileManager.h"
 #include "Config.h"
 #include "Translator.h"
 #include "Exception.h"
 #include "IV8.h"
 #include "V8PCH.h"
 #include "Engine/Blueprint.h"
-#include "FileHelper.h"
-#include "Paths.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "JavascriptIsolate_Private.h"
-#include "PropertyPortFlags.h"
+#include "UObject/PropertyPortFlags.h"
 
 #if WITH_EDITOR
 #include "TypingGenerator.h"
@@ -522,7 +522,7 @@ static UProperty* DuplicateProperty(UObject* Outer, UProperty* Property, FName N
 	return SetupProperty(Clone());
 };
 
-void UJavascriptGeneratedFunction::Thunk(FFrame& Stack, RESULT_DECL)
+void UJavascriptGeneratedFunction::Thunk(UObject* ObjContext, FFrame& Stack, RESULT_DECL)
 {
 	auto Function = static_cast<UJavascriptGeneratedFunction*>(Stack.CurrentNativeFunction);
 
@@ -535,7 +535,7 @@ void UJavascriptGeneratedFunction::Thunk(FFrame& Stack, RESULT_DECL)
 			Isolate::Scope isolate_scope(Context->isolate());
 			HandleScope handle_scope(Context->isolate());
 
-			bool bCallRet = Context->CallProxyFunction(Function->GetOuter(), this, Function, Stack.Locals);
+			bool bCallRet = Context->CallProxyFunction(Function->GetOuter(), ObjContext, Function, Stack.Locals);
 			if (!bCallRet)
 			{
 				return;
@@ -605,7 +605,7 @@ void UJavascriptGeneratedFunction::Thunk(FFrame& Stack, RESULT_DECL)
 			Frame = (uint8*)FMemory_Alloca(Function->PropertiesSize);
 			FMemory::Memzero(Frame, Function->PropertiesSize);
 		}
-		FFrame NewStack(this, Function, Frame, &Stack, Function->Children);
+		FFrame NewStack(ObjContext, Function, Frame, &Stack, Function->Children);
 		FOutParmRec** LastOut = &NewStack.OutParms;
 		UProperty* Property;
 
@@ -1142,7 +1142,7 @@ public:
 
 				FinalizeFunction(Function);
 
-				Function->SetNativeFunc((Native)&UJavascriptGeneratedFunction::Thunk);
+				Function->SetNativeFunc((FNativeFuncPtr)&UJavascriptGeneratedFunction::Thunk);
 
 				Function->Next = Class->Children;
 				Class->Children = Function;

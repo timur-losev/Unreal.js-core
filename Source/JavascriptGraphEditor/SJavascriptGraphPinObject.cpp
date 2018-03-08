@@ -321,7 +321,7 @@ FText SJavascriptGraphPinObject::GetValue() const
 	{
 		if (GraphPinObj->GetSchema()->IsSelfPin(*GraphPinObj))
 		{
-			Value = FText::FromString(GraphPinObj->PinName);
+			Value = FText::FromName(GraphPinObj->PinName);
 		}
 		else
 		{

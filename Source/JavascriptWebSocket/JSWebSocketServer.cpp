@@ -6,7 +6,7 @@
 #include "JSWebSocket.h"
 
 #if PLATFORM_WINDOWS
-#include "AllowWindowsPlatformTypes.h"
+#include "Windows/AllowWindowsPlatformTypes.h"
 #endif
 
 #ifndef THIRD_PARTY_INCLUDES_START
@@ -26,7 +26,7 @@ THIRD_PARTY_INCLUDES_START
 THIRD_PARTY_INCLUDES_END
 
 #if PLATFORM_WINDOWS
-#include "HideWindowsPlatformTypes.h"
+#include "Windows/HideWindowsPlatformTypes.h"
 #endif
 
 // a object of this type is associated by libwebsocket to every connected session. 

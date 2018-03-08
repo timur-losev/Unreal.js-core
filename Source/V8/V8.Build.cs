@@ -78,6 +78,9 @@ public class V8 : ModuleRules
         bEnableExceptions = true;
 
         LoadV8(Target);
+
+        AddEngineThirdPartyPrivateStaticDependencies(Target, "zlib");
+        PublicDependencyModuleNames.Add("zlib");
     }
 
     private void HackWebSocketIncludeDir(ReadOnlyTargetRules Target)

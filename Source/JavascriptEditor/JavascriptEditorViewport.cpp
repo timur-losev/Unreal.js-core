@@ -3,7 +3,7 @@
 #include "AdvancedPreviewScene.h"
 #include "Runtime/Engine/Public/Slate/SceneViewport.h"
 #include "Engine/Canvas.h"
-#include "OverlaySlot.h"
+#include "Components/OverlaySlot.h"
 #include "AssetViewerSettings.h"
 #include "Modules/ModuleVersion.h"
 
@@ -720,7 +720,7 @@ void UJavascriptEditorViewport::DeprojectScreenToWorld(const FVector2D &ScreenPo
 #else
 		const auto& InvViewProjMatrix = View->ViewMatrices.GetInvViewProjMatrix();
 #endif
-        FSceneView::DeprojectScreenToWorld(ScreenPosition, View->ViewRect, InvViewProjMatrix, OutRayOrigin, OutRayDirection);
+        FSceneView::DeprojectScreenToWorld(ScreenPosition, View->UnconstrainedViewRect, InvViewProjMatrix, OutRayOrigin, OutRayDirection);
     }
 }
 
@@ -737,7 +737,7 @@ void UJavascriptEditorViewport::ProjectWorldToScreen(const FVector &WorldPositio
 		const auto& ViewProjMatrix = View->ViewMatrices.GetViewProjMatrix();
 #endif
         
-        FSceneView::ProjectWorldToScreen(WorldPosition, View->ViewRect, ViewProjMatrix, OutScreenPosition);
+        FSceneView::ProjectWorldToScreen(WorldPosition, View->UnconstrainedViewRect, ViewProjMatrix, OutScreenPosition);
     }
 }
 

@@ -1,5 +1,5 @@
 #include "JavascriptWindow.h"
-#include "SWindow.h"
+#include "Widgets/SWindow.h"
 #include "Modules/ModuleVersion.h"
 
 UJavascriptWindow::UJavascriptWindow(const FObjectInitializer& ObjectInitializer)

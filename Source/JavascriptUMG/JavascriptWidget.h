@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UserWidget.h"
+#include "Blueprint/UserWidget.h"
 #include "JavascriptWidget.generated.h"
 
 class UJavascriptWidget;

@@ -1,21 +1,21 @@
 PRAGMA_DISABLE_SHADOW_VARIABLE_WARNINGS
 
 #include "SJavascriptLog.h"
-#include "EditorStyleSettings.h"
-#include "SScrollBorder.h"
-#include "BaseTextLayoutMarshaller.h"
+#include "Classes/EditorStyleSettings.h"
+#include "Widgets/Layout/SScrollBorder.h"
+#include "Framework/Text/BaseTextLayoutMarshaller.h"
 #include "GameFramework/GameMode.h"
 #include "Engine/LocalPlayer.h"
 #include "GameFramework/GameState.h"
 #include "IV8.h"
-#include "STextComboBox.h"
+#include "Widgets/Input/STextComboBox.h"
 #include "ScopedTransaction.h"
-#include "SlateTextRun.h"
-#include "SlateStyle.h"
-#include "OutputDeviceHelper.h"
-#include "UIAction.h"
-#include "MultiBox/MultiBoxBuilder.h"
-#include "SSearchBox.h"
+#include "Framework/Text/SlateTextRun.h"
+#include "Styling/SlateStyle.h"
+#include "Misc/OutputDeviceHelper.h"
+#include "Framework/Commands/UIAction.h"
+#include "Framework/MultiBox/MultiBoxBuilder.h"
+#include "Widgets/Input/SSearchBox.h"
 #include "../../Launch/Resources/Version.h"
 
 #define LOCTEXT_NAMESPACE "JavascriptConsole"
@@ -354,7 +354,7 @@ void SJavascriptConsoleInputBox::OnTextCommitted( const FText& InText, ETextComm
 	{
 		if (!InText.IsEmpty())
 		{
-			IConsoleManager::Get().AddConsoleHistoryEntry( *InText.ToString() );
+			IConsoleManager::Get().AddConsoleHistoryEntry(TEXT("JSB"), *InText.ToString() );
 
 			// Copy the exec text string out so we can clear the widget's contents.  If the exec command spawns
 			// a new window it can cause the text box to lose focus, which will result in this function being
@@ -442,7 +442,7 @@ FReply SJavascriptConsoleInputBox::OnPreviewKeyDown(const FGeometry& MyGeometry,
 		{
 			TArray<FString> History;
 
-			IConsoleManager::Get().GetConsoleHistory(History);
+			IConsoleManager::Get().GetConsoleHistory(TEXT("JSB"), History);
 
 			SetSuggestions(History, true);
 			

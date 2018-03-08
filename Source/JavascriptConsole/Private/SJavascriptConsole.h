@@ -1,6 +1,6 @@
 #pragma once
-#include "SCompoundWidget.h"
-#include "CurveSequence.h"
+#include "Widgets/SCompoundWidget.h"
+#include "Animation/CurveSequence.h"
 
 /**
  * Debug console widget, designed to be summoned on top of a viewport or window

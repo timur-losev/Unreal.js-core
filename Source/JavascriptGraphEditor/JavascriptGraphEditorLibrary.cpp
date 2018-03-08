@@ -100,7 +100,7 @@ FJavascriptEdGraphPin UJavascriptGraphEditorLibrary::FindPin(UEdGraphNode* Node,
 
 FString UJavascriptGraphEditorLibrary::GetPinName(FJavascriptEdGraphPin A)
 {
-	return A.GraphPin ? A.GraphPin->PinName : TEXT("");
+	return A.GraphPin ? A.GraphPin->PinName.ToString() : TEXT("");
 }
 
 bool UJavascriptGraphEditorLibrary::IsValid(FJavascriptEdGraphPin A)

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RichTextBlockDecorator.h"
-#include "SlateHyperlinkRun.h"
+#include "Components/RichTextBlockDecorator.h"
+#include "Framework/Text/SlateHyperlinkRun.h"
 #include "JavascriptRichTextBlockHyperlinkDecorator.generated.h"
 
 class UJavascriptContext;
@@ -23,7 +23,7 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Scripting | Javascript")
 	FJavascriptHyperlinkSignature OnClick;
 
-	virtual TSharedRef<ITextDecorator> CreateDecorator(const FSlateFontInfo& DefaultFont, const FLinearColor& DefaultColor) override;
+	virtual TSharedPtr<ITextDecorator> CreateDecorator(URichTextBlock* InOwner) override;
 
 	void HandleClick(const FSlateHyperlinkRun::FMetadata& Metadata);
 

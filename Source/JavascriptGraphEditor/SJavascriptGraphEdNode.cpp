@@ -4,8 +4,8 @@
 #include "JavascriptGraphEdNode.h"
 #include "JavascriptGraphAssetGraphSchema.h"
 #include "SlateOptMacros.h"
-#include "SBox.h"
-#include "SBoxPanel.h"
+#include "Widgets/Layout/SBox.h"
+#include "Widgets/SBoxPanel.h"
 
 void SJavascriptGraphEdNode::Construct(const FArguments& InArgs, UJavascriptGraphEdNode* InNode)
 {

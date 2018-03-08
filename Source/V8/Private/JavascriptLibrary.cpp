@@ -545,7 +545,7 @@ void UJavascriptLibrary::Log(const FJavascriptLogCategory& Category, ELogVerbosi
 
 	if (!Category.Handle->IsSuppressed(Verbosity))
 	{
-		FMsg::Logf_Internal(TCHAR_TO_ANSI(*FileName), LineNumber, Category.Handle->GetCategoryName(), Verbosity, *Message);
+		FMsg::Logf_Internal(TCHAR_TO_ANSI(*FileName), LineNumber, Category.Handle->GetCategoryName(), Verbosity, TEXT("%s"), *Message);
 		if (Verbosity == ELogVerbosity::Fatal) 
 		{
 			_DebugBreakAndPromptForRemote();
