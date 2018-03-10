@@ -60,7 +60,10 @@ public class JavascriptEditor : ModuleRules
                 PrivateDependencyModuleNames.AddRange(new string []{ "LevelEditor", "ViewportInteraction", "VREditor" });
             }
 
-            PublicDefinitions.Add(string.Format("WITH_KISSFFT=1"));
+
+            AddEngineThirdPartyPrivateStaticDependencies(Target, "Kiss_FFT");
+
+            PublicDefinitions.Add("WITH_KISSFFT=1");
 
             PrivateDependencyModuleNames.AddRange(
                 new string[]
